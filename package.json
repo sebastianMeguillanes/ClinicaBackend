@@ -1,0 +1,21 @@
+{
+  "name": "clinicabackend",
+  "version": "1.0.0",
+  "description": "El backend de la aplicación web de la clínica dental es la columna vertebral tecnológica que impulsa la eficiencia y la calidad en la gestión integral de la clínica. Diseñado para brindar un soporte sólido a las operaciones diarias y mejorar la experiencia tanto de los pacientes como del personal médico y administradores.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "moment": "^2.29.4",
+    "nodemon": "^3.0.1",
+    "pg": "^8.11.3"
+  }
+}
