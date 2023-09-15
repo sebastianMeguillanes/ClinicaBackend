@@ -1,7 +1,6 @@
 
-const db = require('./database/db.js'); 
- 
-console.error('holaaaaa');
+const db = require('./database/db'); 
+
 const sqlQuery = 'SELECT * FROM paciente';
 
 db.query(sqlQuery, (err, result) => {
