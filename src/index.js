@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require('cors');
 const bodyParser = require("body-parser");
 
+//Routers
 const pacienteRoutes = require("./v1/routes/pacienteRoutes");
 const doctorRoutes = require("./v1/routes/doctorRoutes");
 const db = require('./database/db'); 
