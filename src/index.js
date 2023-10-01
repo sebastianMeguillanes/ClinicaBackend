@@ -1,13 +1,13 @@
+const express = require('express');
+const app = express();
+const PORT = 4000 
+//midelwares
+ app.use(express.json());
+ app.use(express.urlencoded({extended: false}))
 
-const db = require('./database/db'); 
+//routers
+app.use(require('./routes/index.js'));
 
-const sqlQuery = 'SELECT * FROM paciente';
-
-db.query(sqlQuery, (err, result) => {
-  if (err) {
-    console.error('Error en la consulta:', err);
-    return;
-  }
-
-  console.log('Resultado de la consulta:', result.rows);
-});
+//definir puerto  
+app.listen(PORT);
+console.log("Server on port " + PORT);
