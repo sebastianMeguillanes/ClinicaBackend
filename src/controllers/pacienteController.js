@@ -1,59 +1,69 @@
-const urlService = require("../model/pacienteModel");
+const pacienteModel = require("../model/pacienteModel");
 const moment =  require("moment");
 
 const getAllPacientes = (req, res) => {
-    urlModel.getAll((error, allUrls) => {
+    pacienteModel.getAll((error, allPacientes) => {
         if (error) {
             console.error(error);
             res.status(500).json({ error: 'Error al obtener las URLs' });
         } else {
-            res.json(allUrls);
+            res.json(allPacientes);
         }
     });
 };
 
 const getOnePaciente = (req, res) => {
-    const urlId = req.params.Id;
-    urlService.getOne(urlId, (error, oneUrl) => {
+    const pacienteId = req.params.Id;
+    urlService.getOne(pacienteId, (error, onePaciente) => {
         if (error) {
             console.error(error);
-            res.status(500).json({ error: 'Error al obtener la URL' });
+            res.status(500).json({ error: 'Error al obtener el Paciente' });
         } else {
-            res.json(oneUrl);
+            res.json(onePaciente);
         }
     });
 };
 
-const createNewUrl = (req, res) => {
+const createNewPaciente = (req, res) => {
     
+//datos de persona
+    const ci = req.body.ci;
     const nombre = req.body.nombre;
-    const url = req.body.url;
-    const urlEncriptada = encriptarURL(url);
-    const fechaActual = moment().format('DD/MM/YYYY');
+    const apellido = req.body.apellido;
+    const celular = req.body.celular;
+    const direccion = req.body.direccion;
+    const sexo = req.body.sexo;
+    const fecha_nacimiento = req.body.fecha_nacimiento;
+//datos de paciente
+    const enfermedad_base = req.body.enfermedad_base;
+    
 
     const nuevoDato = {
+        //datos personas
+        ci: ci,
         nombre: nombre,
-        url: url,
-        url_encriptada: urlEncriptada,
-        fecha: fechaActual
+        apellido: apellido,
+        celular: celular,
+        direccion: direccion,
+        sexo: sexo,
+        fecha_nacimiento: fecha_nacimiento,
+        //datos paciente
     };
-    urlService.createNew(nuevoDato, (error, newUrl) => {
+    pacienteModel.createNew(nuevoDato, (error, newPaciente) => {
         if (error) {
             console.error(error);
-            res.status(500).json({ error: 'Error al crear la URL' });
+            res.status(500).json({ error: 'Error al crear el paciente' });
         } else {
-            res.json(newUrl);
+            res.json(newPaciente);
         }
     });
 };
 
-const updateOneUrl = (req, res) => {
+const updateOnePaciente = (req, res) => {
     const urlId = req.params.Id;
-    const urlData = {
+    const datosPaciente= {
+        ci : req.body.ci,
         nombre: req.body.nombre,
-        url: req.body.url,
-        url_encriptada: encriptarURL(req.body.url),
-        fecha: moment().format('DD/MM/YYYY')
     };
     urlService.updateOne(urlId, urlData, (error, numReplaced) => {
         if (error) {
@@ -65,12 +75,12 @@ const updateOneUrl = (req, res) => {
     });
 };
 
-const deleteOneUrl = (req, res) => {
+const deleteOnePaciente = (req, res) => {
     const urlId = req.params.Id;
     urlService.deleteOne(urlId, (error, numRemoved) => {
         if (error) {
             console.error(error);
-            res.status(500).json({ error: 'Error al eliminar la URL' });
+            res.status(500).json({ error: 'Error al eliminar el paciente' });
         } else {
             res.json({ message: `Se eliminaron ${numRemoved} registros` });
         }
@@ -78,9 +88,9 @@ const deleteOneUrl = (req, res) => {
 };
 
 module.exports = {
-    getAllUrls,
-    getOneUrl,
-    createNewUrl,
-    updateOneUrl,
-    deleteOneUrl,
+    getAllPacientes,
+    getOnePaciente,
+    createNewPaciente,
+    updateOnePaciente,
+    deleteOnePaciente,
 };

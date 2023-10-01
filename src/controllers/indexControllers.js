@@ -1,12 +1,12 @@
-const { Pool } = require('pg');
+// const { Pool } = require('pg');
 
-const pool = new Pool({
-  user: 'admin',
-  host: '181.188.156.195',
-  database: 'ClinicaDB',
-  password: 'admin1234',
-  port: 18004, // Puerto predeterminado de PostgreSQL
-});
+// const pool = new Pool({
+//   user: 'admin',
+//   host: '181.188.156.195',
+//   database: 'ClinicaDB',
+//   password: 'admin1234',
+//   port: 18004, // Puerto predeterminado de PostgreSQL
+// });
 
 const getUsers = async (req,res)=>{
    const response = await pool.query('SELECT * FROM persona');
