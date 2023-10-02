@@ -3,7 +3,7 @@ const { Pool } = require('pg');
 const dbConfig = {
   user: 'admin',
   host: '181.188.156.195', 
-  database: 'Pruebadb',
+  database: 'ClinicaDBDB',
   password: 'admin1234',
   port: 18004,
 };
