@@ -1,96 +1,72 @@
 const pacienteModel = require("../model/pacienteModel");
-const moment =  require("moment");
-
-const getAllPacientes = (req, res) => {
-    pacienteModel.getAll((error, allPacientes) => {
-        if (error) {
-            console.error(error);
-            res.status(500).json({ error: 'Error al obtener las URLs' });
-        } else {
-            res.json(allPacientes);
-        }
-    });
+// Obtener todos los pacientes
+const getAllPacientes = async (req, res) => {
+  try {
+    const pacientes = await pacienteModel.getAll();
+    res.status(200).json(pacientes);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al obtener pacientes' });
+  }
 };
 
-const getOnePaciente = (req, res) => {
-    const pacienteId = req.params.Id;
-    urlService.getOne(pacienteId, (error, onePaciente) => {
-        if (error) {
-            console.error(error);
-            res.status(500).json({ error: 'Error al obtener el Paciente' });
-        } else {
-            res.json(onePaciente);
-        }
-    });
+// Obtener un paciente por su ID
+const getPacienteById = async (req, res) => {
+  const pacienteId = req.params.id;
+  try {
+    const paciente = await pacienteModel.getOne(pacienteId);
+    if (paciente) {
+      res.status(200).json(paciente);
+    } else {
+      res.status(404).json({ error: 'Paciente no encontrado' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al obtener el paciente' });
+  }
 };
 
-const createNewPaciente = (req, res) => {
-    
-//datos de persona
-    const ci = req.body.ci;
-    const nombre = req.body.nombre;
-    const apellido = req.body.apellido;
-    const celular = req.body.celular;
-    const direccion = req.body.direccion;
-    const sexo = req.body.sexo;
-    const fecha_nacimiento = req.body.fecha_nacimiento;
-//datos de paciente
-    const enfermedad_base = req.body.enfermedad_base;
-    
-
-    const nuevoDato = {
-        //datos personas
-        ci: ci,
-        nombre: nombre,
-        apellido: apellido,
-        celular: celular,
-        direccion: direccion,
-        sexo: sexo,
-        fecha_nacimiento: fecha_nacimiento,
-        //datos paciente
-    };
-    pacienteModel.createNew(nuevoDato, (error, newPaciente) => {
-        if (error) {
-            console.error(error);
-            res.status(500).json({ error: 'Error al crear el paciente' });
-        } else {
-            res.json(newPaciente);
-        }
-    });
+// Crear un nuevo paciente
+const createPaciente = async (req, res) => {
+  const pacienteData = req.body;
+  try {
+    const nuevoPaciente = await pacienteModel.createNew(pacienteData);
+    res.status(201).json(nuevoPaciente);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al crear el paciente' });
+  }
 };
 
-const updateOnePaciente = (req, res) => {
-    const urlId = req.params.Id;
-    const datosPaciente= {
-        ci : req.body.ci,
-        nombre: req.body.nombre,
-    };
-    urlService.updateOne(urlId, urlData, (error, numReplaced) => {
-        if (error) {
-            console.error(error);
-            res.status(500).json({ error: 'Error al actualizar la URL' });
-        } else {
-            res.json({ message: `Se actualizaron ${numReplaced} registros` });
-        }
-    });
+// Actualizar un paciente por su ID
+const updatePaciente = async (req, res) => {
+  const pacienteId = req.params.id;
+  const pacienteData = req.body;
+  try {
+    const resultado = await pacienteModel.updateOne(pacienteId, pacienteData);
+    res.status(200).json(resultado);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al actualizar el paciente' });
+  }
 };
 
-const deleteOnePaciente = (req, res) => {
-    const urlId = req.params.Id;
-    urlService.deleteOne(urlId, (error, numRemoved) => {
-        if (error) {
-            console.error(error);
-            res.status(500).json({ error: 'Error al eliminar el paciente' });
-        } else {
-            res.json({ message: `Se eliminaron ${numRemoved} registros` });
-        }
-    });
+// Eliminar un paciente por su ID
+const deletePaciente = async (req, res) => {
+  const pacienteId = req.params.id;
+  try {
+    await pacienteModel.deleteOne(pacienteId);
+    res.status(204).send(); 
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al eliminar el paciente' });
+  }
 };
 
 module.exports = {
-    getAllPacientes,
-    getOnePaciente,
-    createNewPaciente,
-    updateOnePaciente,
-    deleteOnePaciente,
+  getAllPacientes,
+  getPacienteById,
+  createPaciente,
+  updatePaciente,
+  deletePaciente,
 };
