@@ -68,5 +68,5 @@ module.exports = {
   getPacienteById,
   createPaciente,
   updatePaciente,
-  deletePaciente,
+  deletePaciente
 };

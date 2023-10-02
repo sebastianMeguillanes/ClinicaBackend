@@ -8,7 +8,7 @@ const doctorRoutes = require("./v1/routes/doctorRoutes");
 const db = require('./database/db'); 
 
 const app = express();
-const PORT = process.env.PORT || 2000;
+const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -27,7 +27,6 @@ startServer();
 function startServer() {/* 
   app.use("/api/v1", openroutes); */
   app.use("/api/v1/paciente", pacienteRoutes);
-  app.use("/api/v1/doctor", doctorRoutes);
   /* app.use("/api/v1/doctor",seguridad.authMiddleware, doctorRoutes);
    */
   app.listen(PORT ,() =>{

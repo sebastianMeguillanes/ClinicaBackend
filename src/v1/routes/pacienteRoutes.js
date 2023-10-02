@@ -3,9 +3,9 @@ const router = express.Router();
 const pacienteController = require("../../controllers/pacienteController");
 router
     .get("/", pacienteController.getAllPacientes)
-    .get("/:Id", pacienteController.getPacienteById)
+    .get("/:id", pacienteController.getPacienteById)
     .post("/", pacienteController.createPaciente)
-    .put("/:Id", pacienteController.updatePaciente)
-    .delete("/:Id",pacienteController.deletePaciente);   
+    .put("/:id", pacienteController.updatePaciente)
+    .delete("/:id",pacienteController.deletePaciente);   
     
 module.exports = router;
