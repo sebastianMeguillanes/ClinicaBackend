@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
-db.url.loadDatabase((err) => {
+/* db.loadDatabase((err) => {
   if (err) {
     console.error('Error al cargar la base de datos:', err);
     process.exit(1);
@@ -22,13 +22,13 @@ db.url.loadDatabase((err) => {
     console.log('Base de datos cargada correctamente');
     startServer();
   }
-});
-
-function startServer() {
-  app.use("/api/v1", openroutes);
-  app.use("/api/v1/paciente", seguridad.authMiddleware, pacienteRoutes);
-  app.use("/api/v1/doctor",seguridad.authMiddleware, doctorRoutes);
-  
+}); */
+startServer();
+function startServer() {/* 
+  app.use("/api/v1", openroutes); */
+  app.use("/api/v1/paciente", pacienteRoutes);
+  /* app.use("/api/v1/doctor",seguridad.authMiddleware, doctorRoutes);
+   */
   app.listen(PORT ,() =>{
       console.log("Server listen en el puerto",PORT)
   }); 

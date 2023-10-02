@@ -1,4 +1,4 @@
-const express = require("express");
+/* const express = require("express");
 const router = express.Router();
 const doctorController = require("../../controllers/doctorController");
 router
@@ -8,4 +8,4 @@ router
     .put("/:Id", doctorController.updateOneDoctor)
     .delete("/:Id",doctorController.deleteOneDoctor);   
     
-module.exports = router;
+module.exports = router; */
