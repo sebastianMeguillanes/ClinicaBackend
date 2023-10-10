@@ -1,6 +1,6 @@
 const db = require('../database/db');
 
-// Obtener todos los pacientes.
+
 const getAll = async ()=> {
   try {
     const response = await db.query(
@@ -13,7 +13,6 @@ const getAll = async ()=> {
   }
 };
 
-// Obtener un paciente por su ID
 const getOne = async (doctorId) => {
   try {
     const response = await db.query(
@@ -26,9 +25,6 @@ const getOne = async (doctorId) => {
     throw error;
   }
 };
-
-// Crear un nuevo paciente
-// Crear un nuevo paciente/persona
 const createNew = async (doctorData) => {
   try {
     const {
@@ -64,8 +60,6 @@ const createNew = async (doctorData) => {
 
 
 
-// Actualizar un paciente/persona por su ID
-//mandar dato para editar con id_persona
 const updateOne = async (doctorId, doctorData) => {
   try {
     const {
@@ -97,7 +91,6 @@ const updateOne = async (doctorId, doctorData) => {
   }
 };
 
-// Eliminar un paciente/persona por su ID
 const deleteOne = async (doctorId) => {
   try {
     const response = await db.query('SELECT id_persona FROM doctor WHERE id_doctor = $1', [doctorId]);
@@ -111,7 +104,6 @@ const deleteOne = async (doctorId) => {
   }
 };
 
-// Exportar las funciones del servicio
 module.exports = {
   getAll,
   getOne,

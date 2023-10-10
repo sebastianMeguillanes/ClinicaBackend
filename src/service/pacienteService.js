@@ -13,7 +13,6 @@ const getAll = async ()=> {
   }
 };
 
-// Obtener un paciente por su ID
 const getOne = async (pacienteId) => {
   try {
     const response = await db.query(
@@ -27,7 +26,6 @@ const getOne = async (pacienteId) => {
   }
 };
 
-// Crear un nuevo paciente
 // Crear un nuevo paciente/persona
 const createNew = async (pacienteData) => {
   try {
