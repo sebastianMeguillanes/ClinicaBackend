@@ -87,7 +87,7 @@ const updateOne = async (doctorId, doctorData) => {
     );
 
     await db.query(
-    'UPDATE doctor SET especialidad = $1, universidad = $2, licencia_medica = $3 WHERE id_persona = $4', 
+    'UPDATE doctor SET especialidad = $1, universidad = $2, licencia_medica = $3 WHERE id_doctor = $4', 
     [especialidad,universidad, licencia_medica, doctorId]);
 
     return response.rows;
