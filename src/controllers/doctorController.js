@@ -1,5 +1,4 @@
-const doctorModel = require("../model/doctorModel");
-//obtener todos los doctores
+const doctorModel = require("../model/doctorService");
 
 const getAllDoctores = async (req,res) => {
     try{

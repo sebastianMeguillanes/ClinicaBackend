@@ -13,7 +13,6 @@ const getAll = async ()=> {
   }
 };
 
-
 // Obtener un paciente por su ID
 const getOne = async (pacienteId) => {
   try {
@@ -80,7 +79,7 @@ const updateOne = async (pacienteId, pacienteData) => {
       [nombre, apellido, celular, direccion, documento_identidad, sexo, fecha_nacimiento, pacienteId]
     );
 
-    await db.query('UPDATE paciente SET enfermedad_base = $1 WHERE id_paciente = $2', [enfermedad_base, pacienteId]);
+    await db.query('UPDATE paciente SET enfermedad_base = $1 WHERE id_persona = $2', [enfermedad_base, pacienteId]);
 
     return response.rows;
   } catch (error) {

@@ -14,22 +14,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
-/* db.loadDatabase((err) => {
-  if (err) {
-    console.error('Error al cargar la base de datos:', err);
-    process.exit(1);
-  } else {
-    console.log('Base de datos cargada correctamente');
-    startServer();
-  }
-}); */
 startServer();
-function startServer() {/* 
+
+
+function startServer() {
+  /* 
   app.use("/api/v1", openroutes); */
   app.use("/api/v1/paciente", pacienteRoutes);
   app.use("/api/v1/doctor", doctorRoutes);
-  /* app.use("/api/v1/doctor",seguridad.authMiddleware, doctorRoutes);
-   */
+ 
   app.listen(PORT ,() =>{
       console.log("Server listen en el puerto",PORT)
   }); 
