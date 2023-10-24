@@ -28,7 +28,18 @@ const getPacienteById = async (req, res) => {
 
 // Crear un nuevo paciente
 const createPaciente = async (req, res) => {
-  const pacienteData = req.body;
+  const {
+    nombre = req.params.nombre,
+    apellido = req.params.apellido,
+    celular = req.params.celular,
+    direccion =   req.params.direccion,
+    documento_identidad = req.params.documento_identidad,
+    sexo = req.params.sexo,
+    fecha_nacimiento = req.params.fecha_nacimiento,
+    especialidad = req.params.especialidad,
+    universidad = req.params.universidad,
+    licencia_medica = req.params.licencia_medica,
+  } = doctorData;
   try {
     const nuevoPaciente = await pacienteModel.createNew(pacienteData);
     res.status(201).json(nuevoPaciente);

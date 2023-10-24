@@ -30,14 +30,6 @@ const getOne = async (pacienteId) => {
 const createNew = async (pacienteData) => {
   try {
     const {
-      nombre,
-      apellido,
-      celular,
-      direccion,
-      documento_identidad,
-      sexo,
-      fecha_nacimiento,
-      enfermedad_base,
     } = pacienteData;
 
     const response = await db.query(
