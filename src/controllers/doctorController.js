@@ -3,7 +3,7 @@ const doctorModel = require("../model/doctorService");
 const getAllDoctores = async (req,res) => {
     try{
         const doctores = await doctorModel.getAll();
-        res.status(500).json(doctores) 
+        res.status(200).json(doctores) 
     }catch(error){
         console.error(error);
         res.status(500).json({ error:'Error al obtener doctor' });
