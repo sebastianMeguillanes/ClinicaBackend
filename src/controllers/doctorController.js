@@ -6,11 +6,11 @@ const getAllDoctores = async (req,res) => {
         res.status(500).json(doctores) 
     }catch(error){
         console.error(error);
-        res.status(500).json({ error: 'Error al obtener doctor' });
+        res.status(500).json({ error:'Error al obtener doctor' });
     }
 };
 
-const getOneDoctor = async (req, res) => {
+const getDoctorById = async (req, res) => {
     const doctorId = req.params.id;
     try {
       const doctor = await doctorModel.getOne(doctorId);
@@ -25,7 +25,7 @@ const getOneDoctor = async (req, res) => {
     }
   };
 
-const createNewDoctor = async (req, res) =>{
+const createDoctor = async (req, res) =>{
   const doctorData = req.body;
     try {
       const nuevodoctor = await doctorModel.createNew(doctorData);
@@ -36,7 +36,7 @@ const createNewDoctor = async (req, res) =>{
     }
 };
 
-const updateOneDoctor = async (req, res) => {
+const updateDoctor = async (req, res) => {
   const doctorId = req.params.id;
   const doctorData = req.body;
   try {
@@ -48,7 +48,7 @@ const updateOneDoctor = async (req, res) => {
   }
 };
 
-const deleteOneDoctor = async (req, res) => {
+const deleteDoctor = async (req, res) => {
   const doctorId = req.params.id;
   try {
     await doctorModel.deleteOne(doctorId);
@@ -61,8 +61,8 @@ const deleteOneDoctor = async (req, res) => {
 
   module.exports = {
     getAllDoctores,
-    getOneDoctor,
-    createNewDoctor,
-    updateOneDoctor,
-    deleteOneDoctor
+    getDoctorById,
+    createDoctor,
+    updateDoctor,
+    deleteDoctor
   }
