@@ -4,8 +4,9 @@ const db = require('../database/db');
 const getAll = async ()=> {
   try {
     const response = await db.query(
-      'SELECT paciente.*, persona.* FROM paciente INNER JOIN persona ON paciente.id_persona = persona.id_persona;'
+      'SELECT pa.nombre, pa.apellido,d.nombre,d.apellido,t.descripcion FROM historial_clinica hc JOIN paciente p ON hc.id_paciente = p.id_paciente JOIN doctor dr ON hc.id_doctor = dr.id_doctor JOIN tratamiento t ON hc.id_tratamiento = t.id_tratamiento JOIN persona pa ON p.id_persona = pa.id_persona JOIN persona d ON dr.id_persona = d.id_persona;'
     );
+    console.log(response);
     return response.rows;
   } catch (error) {
     console.error(error);
@@ -13,8 +14,9 @@ const getAll = async ()=> {
   }
 };
 
-// Obtener un paciente por su ID
-const getOne = async (pacienteId) => {
+///////////////////////////
+// Obtener un por su ID
+const getOne = async (histClinicaId) => {
   try {
     const response = await db.query(
       'SELECT paciente.*, persona.* FROM paciente INNER JOIN persona ON paciente.id_persona = persona.id_persona WHERE paciente.id_paciente = $1;',

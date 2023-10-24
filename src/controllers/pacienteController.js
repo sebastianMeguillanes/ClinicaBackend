@@ -1,8 +1,8 @@
-const pacienteModel = require("../model/pacienteService");
+const pacienteService = require("../service/pacienteService");
 // Obtener todos los pacientes
 const getAllPacientes = async (req, res) => {
   try {
-    const pacientes = await pacienteModel.getAll();
+    const pacientes = await pacienteService.getAll();
     res.status(200).json(pacientes);
   } catch (error) {
     console.error(error);
@@ -14,7 +14,7 @@ const getAllPacientes = async (req, res) => {
 const getPacienteById = async (req, res) => {
   const pacienteId = req.params.id;
   try {
-    const paciente = await pacienteModel.getOne(pacienteId);
+    const paciente = await pacienteService.getOne(pacienteId);
     if (paciente) {
       res.status(200).json(paciente);
     } else {
@@ -30,7 +30,7 @@ const getPacienteById = async (req, res) => {
 const createPaciente = async (req, res) => {
   const pacienteData = req.body;
   try {
-    const nuevoPaciente = await pacienteModel.createNew(pacienteData);
+    const nuevoPaciente = await pacienteService.createNew(pacienteData);
     res.status(201).json(nuevoPaciente);
   } catch (error) {
     console.error(error);
@@ -43,7 +43,7 @@ const updatePaciente = async (req, res) => {
   const pacienteId = req.params.id;
   const pacienteData = req.body;
   try {
-    const resultado = await pacienteModel.updateOne(pacienteId, pacienteData);
+    const resultado = await pacienteService.updateOne(pacienteId, pacienteData);
     res.status(200).json(resultado);
   } catch (error) {
     console.error(error);
@@ -55,7 +55,7 @@ const updatePaciente = async (req, res) => {
 const deletePaciente = async (req, res) => {
   const pacienteId = req.params.id;
   try {
-    await pacienteModel.deleteOne(pacienteId);
+    await pacienteService.deleteOne(pacienteId);
     res.status(204).send(); 
   } catch (error) {
     console.error(error);

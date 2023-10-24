@@ -1,8 +1,8 @@
-const doctorModel = require("../model/doctorService");
+const doctorService = require("../service/doctorService");
 
 const getAllDoctores = async (req,res) => {
     try{
-        const doctores = await doctorModel.getAll();
+        const doctores = await doctorService.getAll();
         res.status(500).json(doctores) 
     }catch(error){
         console.error(error);
@@ -13,7 +13,7 @@ const getAllDoctores = async (req,res) => {
 const getDoctorById = async (req, res) => {
     const doctorId = req.params.id;
     try {
-      const doctor = await doctorModel.getOne(doctorId);
+      const doctor = await doctorService.getOne(doctorId);
       if (doctor) {
         res.status(200).json(doctor);
       } else {
@@ -28,7 +28,7 @@ const getDoctorById = async (req, res) => {
 const createDoctor = async (req, res) =>{
   const doctorData = req.body;
     try {
-      const nuevodoctor = await doctorModel.createNew(doctorData);
+      const nuevodoctor = await doctorService.createNew(doctorData);
       res.status(201).json(nuevodoctor);
     } catch (error) {
       console.error(error);
@@ -40,7 +40,7 @@ const updateDoctor = async (req, res) => {
   const doctorId = req.params.id;
   const doctorData = req.body;
   try {
-    const resultado = await doctorModel.updateOne(doctorId,doctorData);
+    const resultado = await doctorService.updateOne(doctorId,doctorData);
     res.status(200).json(resultado);
   } catch (error) {
     console.error(error);
@@ -51,7 +51,7 @@ const updateDoctor = async (req, res) => {
 const deleteDoctor = async (req, res) => {
   const doctorId = req.params.id;
   try {
-    await doctorModel.deleteOne(doctorId);
+    await doctorService.deleteOne(doctorId);
     res.status(204).send(); 
   } catch (error) {
     console.error(error);
