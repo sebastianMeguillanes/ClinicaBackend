@@ -1,8 +1,6 @@
-<<<<<<< HEAD
+
 const pacienteService = require("../service/pacienteService");
-=======
-const pacienteModel = require("../service/pacienteService");
->>>>>>> ee263a134553e09292acd50aeeffe27c536a8d75
+
 // Obtener todos los pacientes
 const getAllPacientes = async (req, res) => {
   try {

@@ -4,7 +4,7 @@ const db = require('../database/db');
 const getAll = async ()=> {
   try {
     const response = await db.query(
-      'SELECT t.id_tratamiento,t.descripcion,t.cantidad_sesion,p.nombre,p.apellido FROM tratamiento t INNER JOIN paciente pa ON t.id_paciente = pa.id_paciente INNER JOIN persona p ON pa.id_persona = p.id_persona;'
+      'select * from tratamiento;'
     );
     return response.rows;
   } catch (error) {
@@ -17,7 +17,7 @@ const getAll = async ()=> {
 const getOne = async (tramientoId) => {
   try {
     const response = await db.query(
-      'SELECT t.id_tratamiento, t.descripcion, t.cantidad_sesion, p.nombre, p.apellido FROM tratamiento t INNER JOIN paciente pa ON t.id_paciente = pa.id_paciente INNER JOIN persona p ON pa.id_persona = p.id_persona WHERE pa.id_paciente = $1;',
+      'select * from tratamiento where id_tratamiento = $1;',
       [tramientoId]
     );
     return response.rows[0];
@@ -31,14 +31,13 @@ const getOne = async (tramientoId) => {
 const createNew = async (TratamientoData) => {
   try {
     const {
-      descripcion,
-      cantidad_sesion,
-      id_paciente 
+      tipo,
+      cantidad_sesion
     } = TratamientoData;
 
     const response = await db.query(
-      'INSERT INTO tratamiento (descripcion, cantidad_sesion, id_paciente) VALUES ($1, $2, $3);',
-      [descripcion, cantidad_sesion, id_paciente]
+      'INSERT INTO tratamiento (tipo, cantidad_sesion) VALUES ($1, $2);',
+      [tipo, cantidad_sesion]
     );
 
     return response.rows[0];
@@ -54,14 +53,13 @@ const createNew = async (TratamientoData) => {
 const updateOne = async (tramientoId, TratamientoData) => {
   try {
     const {
-        descripcion,
-        cantidad_sesion,
-        id_paciente 
+        tipo,
+        cantidad_sesion 
       } = TratamientoData;
 
     const response = await db.query(
-      'UPDATE tratamiento SET descripcion = $1, cantidad_sesion = $2, id_paciente = $3 WHERE id_tratamiento = $4',
-      [descripcion,cantidad_sesion,id_paciente, tramientoId]
+      'UPDATE tratamiento SET tipo = $1, cantidad_sesion = $2 WHERE id_tratamiento = $3',
+      [tipo,cantidad_sesion, tramientoId]
     );
 
     return response.rows;

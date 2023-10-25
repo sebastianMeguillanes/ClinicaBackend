@@ -11,7 +11,7 @@ const getAllhistClinica = async (req, res) => {
   }
 };
 
-// Obtener un paciente por su ID
+// Obtener un historial Clinica por su ID
 const getHistClinicaById = async (req, res) => {
   const histClinicaId = req.params.id;
   try {
@@ -35,7 +35,7 @@ const createHistclinica = async (req, res) => {
     res.status(201).json(nuevoPaciente);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Error al crear el paciente' });
+    res.status(500).json({ error: 'Error al crear el Historia Clinica' });
   }
 };
 
@@ -48,7 +48,7 @@ const updateHistclinica = async (req, res) => {
     res.status(200).json(resultado);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Error al actualizar el paciente' });
+    res.status(500).json({ error: 'Error al actualizar Historial Clinica' });
   }
 };
 
@@ -60,7 +60,7 @@ const deletehistClinica = async (req, res) => {
     res.status(204).send(); 
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Error al eliminar el paciente' });
+    res.status(500).json({ error: 'Error al eliminar el Historial Clinica' });
   }
 };
 
