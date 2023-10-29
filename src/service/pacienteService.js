@@ -27,11 +27,18 @@ const getOne = async (pacienteId) => {
   }
 };
 
-// Crear un nuevo paciente
-// Crear un nuevo paciente/persona
+
 const createNew = async (pacienteData) => {
   try {
     const {
+      nombre,
+      apellido,
+      celular,
+      direccion,
+      documento_identidad,
+      sexo,
+      fecha_nacimiento,
+      enfermedad_base,
     } = pacienteData;
 
     const response = await db.query(
@@ -63,12 +70,13 @@ const updateOne = async (pacienteId, pacienteData) => {
       documento_identidad,
       sexo,
       fecha_nacimiento,
+      id_persona,
       enfermedad_base,
     } = pacienteData;
 
     const response = await db.query(
       'UPDATE persona SET nombre = $1, apellido = $2, celular = $3, direccion = $4, documento_identidad = $5, sexo = $6, fecha_nacimiento = $7 WHERE id_persona = $8',
-      [nombre, apellido, celular, direccion, documento_identidad, sexo, fecha_nacimiento, pacienteId]
+      [nombre, apellido, celular, direccion, documento_identidad, sexo, fecha_nacimiento,id_persona]
     );
 
     await db.query('UPDATE paciente SET enfermedad_base = $1 WHERE id_paciente = $2', [enfermedad_base, pacienteId]);

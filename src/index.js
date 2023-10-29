@@ -3,15 +3,15 @@ const cors = require('cors');
 const bodyParser = require("body-parser");
 const fileUpload = require('express-fileupload');
 const path = require('path');
-//const fs = require('fs');
+const db = require('./database/db');
 
-// Routers
+
+// Rotas
 const pacienteRoutes = require("./v1/routes/pacienteRoutes");
 const doctorRoutes = require("./v1/routes/doctorRoutes");
 const tratamientoRoutes = require("./v1/routes/tratamientoRoutes");
 const histClinicaRoutes = require("./v1/routes/histClinicaRoutes");
 
-const db = require('./database/db');
 
 const app = express();
 const PORT = process.env.PORT || 2000;
@@ -19,7 +19,7 @@ const PORT = process.env.PORT || 2000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
-app.use(fileUpload()); // Agrega la configuración para manejar la carga de archivos
+app.use(fileUpload());
 
 // Ruta para cargar una imagen
 app.post('/upload', (req, res) => {

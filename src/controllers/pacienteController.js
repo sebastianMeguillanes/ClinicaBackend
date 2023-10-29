@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 const pacienteService = require("../service/pacienteService");
-=======
-const pacienteModel = require("../service/pacienteService");
->>>>>>> ee263a134553e09292acd50aeeffe27c536a8d75
 // Obtener todos los pacientes
 const getAllPacientes = async (req, res) => {
   try {
@@ -32,18 +28,7 @@ const getPacienteById = async (req, res) => {
 
 // Crear un nuevo paciente
 const createPaciente = async (req, res) => {
-  const {
-    nombre = req.params.nombre,
-    apellido = req.params.apellido,
-    celular = req.params.celular,
-    direccion =   req.params.direccion,
-    documento_identidad = req.params.documento_identidad,
-    sexo = req.params.sexo,
-    fecha_nacimiento = req.params.fecha_nacimiento,
-    especialidad = req.params.especialidad,
-    universidad = req.params.universidad,
-    licencia_medica = req.params.licencia_medica,
-  } = doctorData;
+  const pacienteData = req.body;
   try {
     const nuevoPaciente = await pacienteService.createNew(pacienteData);
     res.status(201).json(nuevoPaciente);

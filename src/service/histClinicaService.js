@@ -29,8 +29,7 @@ const getOne = async (histClinicaId) => {
   }
 };
 
-// Crear un nuevo paciente
-// Crear un nuevo paciente/persona
+
 const createNew = async (pacienteData) => {
   try {
     const {
