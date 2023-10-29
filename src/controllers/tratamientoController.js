@@ -1,4 +1,5 @@
 const tratamientoService = require("../service/tratamientoService");
+
 // Obtener todos los tramientos
 const getAllTratamientos = async (req, res) => {
   try {

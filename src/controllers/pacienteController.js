@@ -1,4 +1,6 @@
+
 const pacienteService = require("../service/pacienteService");
+
 // Obtener todos los pacientes
 const getAllPacientes = async (req, res) => {
   try {

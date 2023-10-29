@@ -4,8 +4,8 @@ const db = require('../database/db');
 const getAll = async ()=> {
   try {
     const response = await db.query(
-      'SELECT pa.nombre, pa.apellido,d.nombre,d.apellido,t.descripcion FROM historial_clinica hc JOIN paciente p ON hc.id_paciente = p.id_paciente JOIN doctor dr ON hc.id_doctor = dr.id_doctor JOIN tratamiento t ON hc.id_tratamiento = t.id_tratamiento JOIN persona pa ON p.id_persona = pa.id_persona JOIN persona d ON dr.id_persona = d.id_persona;'
-    );
+      "SELECT hc.radiografias, t.tipo AS tipo_tratamiento, CONCAT(p.nombre,' ', p.apellido) AS nombre_doctor FROM historial_clinica hc JOIN tratamiento t ON hc.id_tratamiento = t.id_tratamiento JOIN doctor d ON hc.id_doctor = d.id_doctor JOIN persona p ON d.id_persona = p.id_persona;"
+      );
     console.log(response);
     return response.rows;
   } catch (error) {
@@ -15,13 +15,15 @@ const getAll = async ()=> {
 };
 
 ///////////////////////////
-// Obtener un por su ID
+// Obtener historia clinica  por su ID
 const getOne = async (histClinicaId) => {
   try {
     const response = await db.query(
-      'SELECT paciente.*, persona.* FROM paciente INNER JOIN persona ON paciente.id_persona = persona.id_persona WHERE paciente.id_paciente = $1;',
-      [pacienteId]
-    );
+
+      "SELECT hc.radiografias, t.tipo AS tipo_tratamiento, CONCAT(p.nombre,' ', p.apellido) AS nombre_doctor FROM historial_clinica hc JOIN tratamiento t ON hc.id_tratamiento = t.id_tratamiento JOIN doctor d ON hc.id_doctor = d.id_doctor JOIN persona p ON d.id_persona = p.id_persona where id_historial= $1;",
+      [histClinicaId]
+      );
+
     return response.rows[0];
   } catch (error) {
     console.error(error);
@@ -30,28 +32,21 @@ const getOne = async (histClinicaId) => {
 };
 
 
-const createNew = async (pacienteData) => {
+// Crear una nueva historial clinica
+const createNew = async (histClinicaData) => {
   try {
     const {
-      nombre,
-      apellido,
-      celular,
-      direccion,
-      documento_identidad,
-      sexo,
-      fecha_nacimiento,
-      enfermedad_base,
-    } = pacienteData;
+      radiografias,
+      id_paciente,
+      id_tratamiento,
+      id_doctor
+    } = histClinicaData;
 
     const response = await db.query(
-      'INSERT INTO persona (nombre, apellido, celular, direccion, documento_identidad, sexo, fecha_nacimiento) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id_persona',
-      [nombre, apellido, celular, direccion, documento_identidad, sexo, fecha_nacimiento]
+      'INSERT INTO historial_clinica (radiografias,id_paciente,id_tratamiento,id_doctor) VALUES ($1, $2, $3, $4);',
+      [radiografias, id_paciente, id_tratamiento, id_doctor]
     );
-
-    const idPersona = response.rows[0].id_persona;
     
-    await db.query('INSERT INTO paciente (enfermedad_base, id_persona) VALUES ($1, $2)', [enfermedad_base, idPersona]);
-
     return response.rows[0];
   } catch (error) {
     console.error(error);
@@ -61,26 +56,20 @@ const createNew = async (pacienteData) => {
 
 
 
-// Actualizar un paciente/persona por su ID
-const updateOne = async (pacienteId, pacienteData) => {
+// Actualizar historial clinica por su ID
+const updateOne = async (histClinicaId, histClinicaData) => {
   try {
     const {
-      nombre,
-      apellido,
-      celular,
-      direccion,
-      documento_identidad,
-      sexo,
-      fecha_nacimiento,
-      enfermedad_base,
-    } = pacienteData;
+      radiografias,
+      id_paciente,
+      id_tratamiento,
+      id_doctor
+    } = histClinicaData;
 
     const response = await db.query(
-      'UPDATE persona SET nombre = $1, apellido = $2, celular = $3, direccion = $4, documento_identidad = $5, sexo = $6, fecha_nacimiento = $7 WHERE id_persona = $8',
-      [nombre, apellido, celular, direccion, documento_identidad, sexo, fecha_nacimiento, pacienteId]
+      'UPDATE historial_clinica SET radiografias = $1, id_paciente = $2, id_tratamiento = $3, id_doctor = $4 WHERE id_historial = $5',
+      [radiografias, id_paciente,id_tratamiento,id_doctor,histClinicaId]
     );
-
-    await db.query('UPDATE paciente SET enfermedad_base = $1 WHERE id_paciente = $2', [enfermedad_base, pacienteId]);
 
     return response.rows;
   } catch (error) {
@@ -89,13 +78,13 @@ const updateOne = async (pacienteId, pacienteData) => {
   }
 };
 
-// Eliminar un paciente/persona por su ID
-const deleteOne = async (pacienteId) => {
+// Eliminar un historial clinica por su ID
+const deleteOne = async (histClinicaId) => {
   try {
-    const response = await db.query('SELECT id_persona FROM paciente WHERE id_paciente = $1', [pacienteId]);
-    const idPersona = response.rows[0].id_persona;
-    await db.query('DELETE FROM paciente WHERE id_paciente = $1', [pacienteId]);
-    await db.query('DELETE FROM persona WHERE id_persona = $1', [idPersona]);
+    const response = await db.query(
+    'DELETE FROM historial_clinica WHERE id_historial = $1', 
+    [histClinicaId]);
+   
     return true;
   } catch (error) {
     console.error(error);

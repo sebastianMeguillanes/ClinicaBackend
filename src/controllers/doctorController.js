@@ -1,8 +1,9 @@
-const doctorModel = require("../service/doctorService");
+
+const doctorService = require("../service/doctorService");
 
 const getAllDoctores = async (req,res) => {
     try{
-        const doctores = await doctorModel.getAll();
+        const doctores = await doctorService.getAll();
         res.status(200).json(doctores) 
     }catch(error){
         console.error(error);
