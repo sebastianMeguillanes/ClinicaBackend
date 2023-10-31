@@ -57,6 +57,7 @@ const updateOne = async (doctorId, doctorData) => {
       documento_identidad,
       sexo,
       fecha_nacimiento,
+      id_persona,
       especialidad,
       universidad,
       licencia_medica
@@ -64,7 +65,7 @@ const updateOne = async (doctorId, doctorData) => {
 
     const response = await db.query(
       'UPDATE persona SET nombre = $1, apellido = $2, celular = $3, direccion = $4, documento_identidad = $5, sexo = $6, fecha_nacimiento = $7 WHERE id_persona = $8',
-      [nombre, apellido, celular, direccion, documento_identidad, sexo, fecha_nacimiento, doctorId]
+      [nombre, apellido, celular, direccion, documento_identidad, sexo, fecha_nacimiento, id_persona]
     );
 
     await db.query(
