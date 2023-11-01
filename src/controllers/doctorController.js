@@ -26,16 +26,28 @@ const getDoctorById = async (req, res) => {
     }
   };
 
-const createDoctor = async (req, res) =>{
+// const createDoctor = async (req, res) =>{
+//   const doctorData = req.body;
+//     try {
+//       const nuevodoctor = await doctorService.createNew(doctorData);
+//       res.status(201).json(nuevodoctor);
+//     } catch (error) {
+//       console.error(error);
+//       res.status(500).json({ error: 'Error al crear el doctor' });
+//     }
+// };
+
+const createDoctor = async (req, res) => {
   const doctorData = req.body;
-    try {
-      const nuevodoctor = await doctorService.createNew(doctorData);
-      res.status(201).json(nuevodoctor);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Error al crear el doctor' });
-    }
+  try {
+    const nuevodoctor = await doctorService.createNew(doctorData);
+    res.status(201).json(nuevodoctor);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message }); // Muestra el mensaje de error original
+  }
 };
+
 
 const updateDoctor = async (req, res) => {
   const doctorId = req.params.id;

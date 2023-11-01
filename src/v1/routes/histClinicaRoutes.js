@@ -2,10 +2,10 @@ const express = require("express");
 const router = express.Router();
 const histClinicaController = require("../../controllers/histClinicaController");
 router
-    .get("/", histClinicaController.getAllhistClinica)
+    .get("/", histClinicaController.getAllHistClinica)
     .get("/:id", histClinicaController.getHistClinicaById)
-    .post("/", histClinicaController.createHistclinica)
-    .put("/:id", histClinicaController.updateHistclinica)
-    .delete("/:id",histClinicaController.deletehistClinica);   
+    .post("/", histClinicaController.createHistClinica)
+    .put("/:id", histClinicaController.updateHistClinica)
+    .delete("/:id",histClinicaController.deleteHistClinica);   
     
 module.exports = router;

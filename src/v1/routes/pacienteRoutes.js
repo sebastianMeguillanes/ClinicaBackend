@@ -9,3 +9,5 @@ router
     .delete("/:id",pacienteController.deletePaciente);   
     
 module.exports = router;
+
+//module.exports =(app) => app.use("/pacienteRoutes",router);

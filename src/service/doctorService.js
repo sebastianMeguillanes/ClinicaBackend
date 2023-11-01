@@ -27,6 +27,19 @@ const getOne = async (doctorId) => {
 };
 const createNew = async (doctorData) => {
   try {
+    const {
+      nombre,
+      apellido,
+      celular,
+      direccion,
+      documento_identidad,
+      sexo,
+      fecha_nacimiento,
+      especialidad,
+      universidad,
+      licencia_medica
+    } = doctorData;
+
     const response = await db.query(
       'INSERT INTO persona (nombre, apellido, celular, direccion, documento_identidad, sexo, fecha_nacimiento) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id_persona',
       [nombre, apellido, celular, direccion, documento_identidad, sexo, fecha_nacimiento]

@@ -4,7 +4,7 @@ const db = require('../database/db');
 const getAll = async ()=> {
   try {
     const response = await db.query(
-      "SELECT hc.radiografias, t.tipo AS tipo_tratamiento, CONCAT(p.nombre,' ', p.apellido) AS nombre_doctor FROM historial_clinica hc JOIN tratamiento t ON hc.id_tratamiento = t.id_tratamiento JOIN doctor d ON hc.id_doctor = d.id_doctor JOIN persona p ON d.id_persona = p.id_persona;"
+      "select * from historial_clinica"
       );
     console.log(response);
     return response.rows;
