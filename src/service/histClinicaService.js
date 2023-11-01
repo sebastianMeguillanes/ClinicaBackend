@@ -14,7 +14,6 @@ const getAll = async ()=> {
   }
 };
 
-///////////////////////////
 // Obtener historia clinica  por su ID
 const getOne = async (histClinicaId) => {
   try {
