@@ -1,4 +1,6 @@
 const histClinicaService = require("../service/histClinicaService");
+const multer = require('multer');
+const path = require('path');
 
 // Obtener todos las historias clinicas
 const getAllHistClinica = async (req, res) => {
@@ -30,14 +32,34 @@ const getHistClinicaById = async (req, res) => {
 // Crear un nuevo Historial Clinica
 const createHistClinica = async (req, res) => {
   const histClinicaData = req.body;
+  
+  // Obtén el nombre único del archivo de la variable
+  const radiografias = getUniqueFileName();
+
+  // Agrega el nombre único del archivo a los datos
+  histClinicaData.radiografias = radiografias;
+console.log(histClinicaData);
+  const guardarEnBaseDeDatos = new Promise(async (resolve, reject) => {
+    try {
+      // Realiza cualquier otra operación necesaria aquí, como validar datos
+      // Luego, llama a la función para guardar en la base de datos
+      const nuevohistClinica = await histClinicaService.createNew(histClinicaData);
+
+      resolve(nuevohistClinica);
+    } catch (error) {
+      reject(error);
+    }
+  });
+
   try {
-    const nuevohistClinica = await histClinicaService.createNew(histClinicaData);
-    res.status(201).json(nuevohistClinica);
+    const result = await guardarEnBaseDeDatos;
+    res.status(201).json(result);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error al crear el Historia Clinica' });
   }
 };
+
 
 // Actualizar Historial Clinica por su ID
 const updateHistClinica = async (req, res) => {
@@ -64,10 +86,56 @@ const deleteHistClinica = async (req, res) => {
   }
 };
 
+
+// Configuración de multer para el almacenamiento de archivos
+const configureMulterStorage = () => {
+  let uniqueFileName; // Variable para almacenar el nombre único
+
+  const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, 'src/upload/');
+    },
+    filename: (req, file, cb) => {
+      const extname = path.extname(file.originalname);
+      uniqueFileName = Date.now() + extname;
+      cb(null, uniqueFileName); // Nombre único para el archivo
+      console.log(uniqueFileName);
+    },
+  });
+
+  return { storage, getUniqueFileName: () => uniqueFileName };
+};
+
+const { storage, getUniqueFileName } = configureMulterStorage();
+const radiografia = multer({ storage });
+
+const radiografiaImage = (req, res) => {
+  try {
+    // Accede al archivo cargado mediante req.file
+    if (!req.file) {
+      return res.status(400).json({ error: 'No se ha proporcionado ningún archivo.' });
+    }
+
+    // Obtén el nombre único del archivo
+    const uniqueFileName = getUniqueFileName();
+
+    // Realiza cualquier procesamiento adicional aquí
+
+    return res.status(200).json({ message: 'Archivo subido exitosamente.', fileName: uniqueFileName });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al procesar la carga de la imagen.' });
+  }
+};
+
+
 module.exports = {
   getAllHistClinica,
   getHistClinicaById,
   createHistClinica,
   updateHistClinica,
-  deleteHistClinica
+  deleteHistClinica,
+  radiografiaImage, 
+  radiografia
 };
+
