@@ -3,7 +3,7 @@ const cors = require('cors');
 const bodyParser = require("body-parser");
 const fileUpload = require('express-fileupload');
 const path = require('path');
-const uuid = require('uuid'); // Módulo para generar nombres únicos
+
 
 // Routers
 const pacienteRoutes = require("./v1/routes/pacienteRoutes");
@@ -14,6 +14,7 @@ const histClinicaRoutes = require("./v1/routes/histClinicaRoutes");
 const db = require('./database/db');
 
 const app = express();
+//app.use(express.json());
 const PORT = process.env.PORT || 2000;
 
 app.use(bodyParser.json());
@@ -46,6 +47,11 @@ function startServer() {
   app.use("/api/v1/doctor", doctorRoutes);
   app.use("/api/v1/tratamiento", tratamientoRoutes);
   app.use("/api/v1/histClinica", histClinicaRoutes);
+
+  app.get('/', (req, res) => {
+    res.send('Hola, mundo!');
+  });
+  
 
   app.listen(PORT, () => {
     console.log("Server listen en el puerto", PORT);

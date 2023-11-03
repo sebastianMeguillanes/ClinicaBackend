@@ -30,6 +30,7 @@ const getTratamientoById = async (req, res) => {
 // Crear un nuevo tratamiento
 const createTratamiento = async (req, res) => {
   const TratamientoData = req.body;
+ console.log(req.body);
   try {
     const nuevoTratamiento = await tratamientoService.createNew(TratamientoData);
     res.status(201).json(nuevoTratamiento);
