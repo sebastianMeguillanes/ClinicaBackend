@@ -3,7 +3,7 @@ const cors = require('cors');
 const bodyParser = require("body-parser");
 const fileUpload = require('express-fileupload');
 const path = require('path');
-const uuid = require('uuid'); // Módulo para generar nombres únicos
+//const uuid = require('uuid'); // Módulo para generar nombres únicos
 
 // Routers
 const pacienteRoutes = require("./v1/routes/pacienteRoutes");
@@ -19,7 +19,7 @@ const PORT = process.env.PORT || 2000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
-app.use(fileUpload()); // Agrega la configuración para manejar la carga de archivos
+app.use(fileUpload()); 
 
 // Ruta para cargar una imagen
 app.post('/upload', (req, res) => {
