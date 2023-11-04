@@ -1,6 +1,7 @@
 
 const doctorService = require("../service/doctorService");
 
+
 const getAllDoctores = async (req,res) => {
     try{
         const doctores = await doctorService.getAll();
