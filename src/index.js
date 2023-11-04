@@ -18,6 +18,10 @@ const radiografiaRoutes = require('./v1/routes/radiografiaRoutes');
 const app = express();
 app.use(express.json());
 app.use(bodyParser.json());
+
+// Configurar el directorio de imágenes estáticas (upload)
+app.use('/uploads', express.static(path.join(__dirname, 'upload')));
+
 const PORT = process.env.PORT || 2000;
 
 function startServer() {

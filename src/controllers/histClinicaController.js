@@ -1,6 +1,7 @@
 const histClinicaService = require("../service/histClinicaService");
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
 
 // Obtener todos las historias clinicas
 const getAllHistClinica = async (req, res) => {
@@ -87,7 +88,22 @@ const deleteHistClinica = async (req, res) => {
 };
 
 
-// Configuración de multer para el almacenamiento de archivos
+// FUNCIONES IMAGENES
+
+const getImage = async (req, res) => {
+  const imageName = req.params.imageName;
+  const imagePath = path.join(__dirname, '../upload', imageName);
+  
+  // Enviar la imagen como respuesta
+  if (fs.existsSync(imagePath)) {
+    // Eliminar la imagen
+    res.sendFile(imagePath);
+    } else {
+    res.status(404).json({ message: 'La imagen no existe' });
+  }
+};
+
+
 const configureMulterStorage = () => {
   let uniqueFileName; // Variable para almacenar el nombre único
 
@@ -128,6 +144,20 @@ const radiografiaImage = (req, res) => {
   }
 };
 
+const deleteImage = async (req, res) => {
+  const imageName = req.params.imageName;
+  const imagePath = path.join(__dirname, '../upload', imageName);
+  
+  // Verificar si la imagen existe antes de intentar eliminarla
+  if (fs.existsSync(imagePath)) {
+    // Eliminar la imagen
+    fs.unlinkSync(imagePath);
+    res.status(200).json({ message: 'Imagen eliminada con éxito' });
+  } else {
+    res.status(404).json({ message: 'La imagen no existe' });
+  }
+};
+
 
 module.exports = {
   getAllHistClinica,
@@ -135,6 +165,8 @@ module.exports = {
   createHistClinica,
   updateHistClinica,
   deleteHistClinica,
+  getImage,
+  deleteImage,
   radiografiaImage, 
   radiografia
 };
