@@ -1,7 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { radiografia, radiografiaImage } = require('../../controllers/radiografiaController');
+const path = require('path');
+const radiografiaController = require("../../controllers/radiografiaController");
 
-router.post('/', radiografia.single(), radiografiaImage);
+// Ruta para consultar una imagen por nombre
+router
+    
+.get("/:imageName", radiografiaController.getImage)
+.delete("/:imageName", radiografiaController.deleteImage)
 
 module.exports = router;

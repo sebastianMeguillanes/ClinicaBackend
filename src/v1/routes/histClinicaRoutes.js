@@ -6,9 +6,15 @@ const { radiografia, radiografiaImage } = require('../../controllers/histClinica
 router
     .get("/", histClinicaController.getAllHistClinica)
     .get("/:id", histClinicaController.getHistClinicaById)
-    .post("/", histClinicaController.createHistClinica)   
-    .post('/radiografia', radiografia.single(), radiografiaImage)
+    .post("/", histClinicaController.createHistClinica)  
     .put("/:id", histClinicaController.updateHistClinica)
     .delete("/:id",histClinicaController.deleteHistClinica);   
+  
+//routers de imagenes 
+router
+    .get("/radiografia/:imageName", histClinicaController.getImage)
+    .post('/radiografia', radiografia.single(), radiografiaImage)
+    .delete("/radiografia/:imageName", histClinicaController.deleteImage)
+
     
 module.exports = router;
