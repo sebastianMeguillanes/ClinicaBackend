@@ -13,9 +13,9 @@ const getAllAgenda = async (req, res) => {
 
 // Obtener un tratamietn por el ID paciente
 const getAgendaById = async (req, res) => {
-  const agendaId = req.params.id;
+  const doctorId = req.params.id;
   try {
-    const agenda = await agendaService.getOne(agendaId);
+    const agenda = await agendaService.getOne(doctorId);
     if (agenda) {
       res.status(200).json(agenda);
     } else {
@@ -44,7 +44,7 @@ const updateAgenda = async (req, res) => {
   const agendaId = req.params.id;
   const AgendaData = req.body;
   try {
-    const resultado = await AgendaService.updateOne(agendaId, AgendaData);
+    const resultado = await agendaService.updateOne(agendaId, AgendaData);
     res.status(200).json(resultado);
   } catch (error) {
     console.error(error);
@@ -68,6 +68,8 @@ module.exports = {
 
     getAllAgenda,
     getAgendaById,
-    createAgenda
+    createAgenda,
+    updateAgenda,
+    deleteAgenda
   
 };
