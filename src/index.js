@@ -4,7 +4,8 @@ const bodyParser = require("body-parser");
 const fileUpload = require('express-fileupload');
 const path = require('path');
 
-// Routers
+
+
 const pacienteRoutes = require("./v1/routes/pacienteRoutes");
 const doctorRoutes = require("./v1/routes/doctorRoutes");
 const tratamientoRoutes = require("./v1/routes/tratamientoRoutes");
@@ -24,6 +25,12 @@ app.use(bodyParser.json());
 app.use('/uploads', express.static(path.join(__dirname, 'upload')));
 
 const PORT = process.env.PORT || 2000;
+
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
+
 
 function startServer() {
   
