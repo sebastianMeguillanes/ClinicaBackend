@@ -16,9 +16,9 @@ const getAllHistClinica = async (req, res) => {
 
 // Obtener un historial Clinica por su ID
 const getHistClinicaById = async (req, res) => {
-  const histClinicaId = req.params.id;
+  const pacienteId = req.params.id;
   try {
-    const histClinica = await histClinicaService.getOne(histClinicaId);
+    const histClinica = await histClinicaService.getOne(pacienteId);
     if (histClinica) {
       res.status(200).json(histClinica);
     } else {

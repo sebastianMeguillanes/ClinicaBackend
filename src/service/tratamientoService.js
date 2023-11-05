@@ -14,11 +14,11 @@ const getAll = async ()=> {
 };
 
 // Se busca tratamiento mediante paciente
-const getOne = async (tramientoId) => {
+const getOne = async (tratamientoId) => {
   try {
     const response = await db.query(
       'select * from tratamiento where id_tratamiento = $1;',
-      [tramientoId]
+      [tratamientoId]
     );
     return response.rows[0];
   } catch (error) {
@@ -50,7 +50,7 @@ const createNew = async (TratamientoData) => {
 
 
 // Actualizar un tratamiento mediante el id 
-const updateOne = async (tramientoId, TratamientoData) => {
+const updateOne = async (tratamientoId, TratamientoData) => {
   try {
     const {
         tipo,
@@ -59,7 +59,7 @@ const updateOne = async (tramientoId, TratamientoData) => {
 
     const response = await db.query(
       'UPDATE tratamiento SET tipo = $1, cantidad_sesion = $2 WHERE id_tratamiento = $3',
-      [tipo,cantidad_sesion, tramientoId]
+      [tipo,cantidad_sesion, tratamientoId]
     );
 
     return response.rows;
@@ -70,9 +70,9 @@ const updateOne = async (tramientoId, TratamientoData) => {
 };
 
 // Eliminar un paciente/persona por su ID
-const deleteOne = async (tramientoId) => {
+const deleteOne = async (tratamientoId) => {
   try {
-    const response = await db.query('DELETE FROM tratamiento WHERE id_tratamiento = $1;', [tramientoId]);
+    const response = await db.query('DELETE FROM tratamiento WHERE id_tratamiento = $1;', [tratamientoId]);
     
     return response.rows;
   } catch (error) {
