@@ -4,7 +4,7 @@ const db = require('../database/db');
 const getAll = async ()=> {
     try {
       const response = await db.query(
-        "SELECT a.nombre AS paciente_nombre, a.ci AS paciente_ci, a.fecha_hora, a.descripcion, CONCAT(p.nombre, ' ', p.apellido) AS doctor_nombre_apellido FROM agenda a INNER JOIN doctor d ON a.id_doctor = d.id_doctor INNER JOIN persona p ON d.id_persona = p.id_persona;"
+        "select * from Schedule"
       );
       return response.rows;
     } catch (error) {

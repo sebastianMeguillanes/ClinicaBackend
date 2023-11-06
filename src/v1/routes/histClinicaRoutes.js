@@ -6,6 +6,7 @@ const { radiografia, radiografiaImage } = require('../../controllers/histClinica
 router
     .get("/", histClinicaController.getAllHistClinica)
     .get("/:id", histClinicaController.getHistClinicaById)
+    .get("/historias/:id", histClinicaController.getHistClinicaById2)
     .post("/", histClinicaController.createHistClinica)  
     .put("/:id", histClinicaController.updateHistClinica)
     .delete("/:id",histClinicaController.deleteHistClinica);   

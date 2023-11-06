@@ -4,7 +4,7 @@ const db = require('../database/db');
 const getAll = async ()=> {
     try {
       const response = await db.query(
-        'SELECT hc.id_historial, hc.radiografias, p.nombre AS nombre_paciente, p.apellido AS apellido_paciente, t.tipo AS tipo_tratamiento, d.nombre AS nombre_doctor, d.apellido AS apellido_doctor,hc.fecha_registro,hc.estado_historial FROM historial_clinica hc JOIN paciente pa ON hc.id_paciente = pa.id_paciente JOIN persona p ON pa.id_persona = p.id_persona JOIN tratamiento t ON hc.id_tratamiento = t.id_tratamiento JOIN doctor dr ON hc.id_doctor = dr.id_doctor JOIN persona d ON dr.id_persona = d.id_persona;'
+        'SELECT hc.id_historial, hc.radiografias, p.nombre AS nombre_paciente, p.apellido AS apellido_paciente, t.tipo AS tipo_tratamiento, d.nombre AS nombre_doctor, d.apellido AS apellido_doctor, hc.fecha_registro, hc.estado_historial, hc.medicaciones FROM historial_clinica hc JOIN paciente pa ON hc.id_paciente = pa.id_paciente JOIN persona p ON pa.id_persona = p.id_persona JOIN tratamiento t ON hc.id_tratamiento = t.id_tratamiento JOIN doctor dr ON hc.id_doctor = dr.id_doctor JOIN persona d ON dr.id_persona = d.id_persona;'
       );
       return response.rows;
     } catch (error) {
@@ -26,6 +26,20 @@ const getOne = async (pacienteId) => {
       throw error;
     }
   };
+
+  const getOne2 = async (pacienteId) => {
+    try {
+      const response = await db.query(
+        'Select * from historial_clinica WHERE id_historial = $1;',
+        [pacienteId]
+      );
+      return response.rows;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+
 
 
 const createNew = async (histClinicaData) => {
@@ -108,5 +122,6 @@ module.exports = {
     getOne,
     createNew,
     updateOne,
-    deleteOne
+    deleteOne,
+    getOne2
   };

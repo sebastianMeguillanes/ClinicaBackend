@@ -30,6 +30,23 @@ const getHistClinicaById = async (req, res) => {
   }
 };
 
+// Obtener un historial Clinica por su ID
+const getHistClinicaById2 = async (req, res) => {
+  const pacienteId = req.params.id;
+  try {
+    const histClinica = await histClinicaService.getOne2(pacienteId);
+    if (histClinica) {
+      res.status(200).json(histClinica);
+    } else {
+      res.status(404).json({ error: 'Historia clinica no encontrado' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al obtener la historia clinica' });
+  }
+};
+
+
 // Crear un nuevo Historial Clinica
 const createHistClinica = async (req, res) => {
   const histClinicaData = req.body;
@@ -162,6 +179,7 @@ const deleteImage = async (req, res) => {
 module.exports = {
   getAllHistClinica,
   getHistClinicaById,
+  getHistClinicaById2,
   createHistClinica,
   updateHistClinica,
   deleteHistClinica,
