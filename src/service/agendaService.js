@@ -4,7 +4,7 @@ const db = require('../database/db');
 const getAll = async ()=> {
     try {
       const response = await db.query(
-        "SELECT agenda.id_Agenda, agenda.nombre AS nombre_paciente, agenda.ci AS ci_paciente, agenda.fecha_hora, agenda.descripcion, persona.nombre AS nombre_doctor, persona.apellido AS apellido_doctor FROM agenda JOIN doctor ON agenda.id_doctor = doctor.id_doctor JOIN persona ON doctor.id_persona = persona.id_persona"
+        "SELECT agenda.*, persona.* FROM agenda JOIN doctor ON agenda.id_doctor = doctor.id_doctor JOIN persona ON doctor.id_persona = persona.id_persona;"
       );
       return response.rows;
     } catch (error) {
@@ -17,7 +17,7 @@ const getAll = async ()=> {
 const getOne = async (doctorId) => {
     try {
       const response = await db.query(
-        "SELECT agenda.id_Agenda,  agenda.nombre AS nombre_paciente, agenda.ci AS ci_paciente, agenda.fecha_hora, agenda.descripcion, persona.nombre AS nombre_doctor, persona.apellido AS apellido_doctor FROM agenda JOIN doctor ON agenda.id_doctor = doctor.id_doctor JOIN persona ON doctor.id_persona = persona.id_persona where agenda.id_agenda = $1;",
+        "SELECT agenda.*, persona.* FROM agenda JOIN doctor ON agenda.id_doctor = doctor.id_doctor JOIN persona ON doctor.id_persona = persona.id_persona where agenda.id_agenda = $1;",
         [doctorId]
       );
       return response.rows;

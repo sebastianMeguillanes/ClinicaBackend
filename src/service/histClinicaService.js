@@ -4,7 +4,7 @@ const db = require('../database/db');
 const getAll = async ()=> {
     try {
       const response = await db.query(
-        "SELECT hc.id_historial, hc.medicaciones,hc.examen_clinico,p.nombre AS nombre_paciente, p.apellido AS apellido_paciente, t.tipo AS tipo_tratamiento, d.nombre AS nombre_doctor, d.apellido AS apellido_doctor,hc.fecha_registro,hc.estado_historial FROM historial_clinica hc JOIN paciente pa ON hc.id_paciente = pa.id_paciente JOIN persona p ON pa.id_persona = p.id_persona JOIN tratamiento t ON hc.id_tratamiento = t.id_tratamiento JOIN doctor dr ON hc.id_doctor = dr.id_doctor JOIN persona d ON dr.id_persona = d.id_persona;"
+        "SELECT * FROM historial_clinica JOIN paciente ON historial_clinica.id_paciente = paciente.id_paciente JOIN persona ON paciente.id_persona = persona.id_persona JOIN tratamiento ON historial_clinica.id_tratamiento = tratamiento.id_tratamiento JOIN doctor ON historial_clinica.id_doctor = doctor.id_doctor JOIN persona AS persona_doctor ON doctor.id_persona = persona_doctor.id_persona;"
       );
       return response.rows;
     } catch (error) {
@@ -17,7 +17,7 @@ const getAll = async ()=> {
 const getOne = async (pacienteId) => {
     try {
       const response = await db.query(
-        "SELECT hc.id_historial, hc.medicaciones,hc.examen_clinico,p.nombre AS nombre_paciente, p.apellido AS apellido_paciente, t.tipo AS tipo_tratamiento, d.nombre AS nombre_doctor, d.apellido AS apellido_doctor,hc.fecha_registro,hc.estado_historial FROM historial_clinica hc JOIN paciente pa ON hc.id_paciente = pa.id_paciente JOIN persona p ON pa.id_persona = p.id_persona JOIN tratamiento t ON hc.id_tratamiento = t.id_tratamiento JOIN doctor dr ON hc.id_doctor = dr.id_doctor JOIN persona d ON dr.id_persona = d.id_persona WHERE pa.id_paciente = $1;",
+        "SELECT * FROM historial_clinica JOIN paciente ON historial_clinica.id_paciente = paciente.id_paciente JOIN persona ON paciente.id_persona = persona.id_persona JOIN tratamiento ON historial_clinica.id_tratamiento = tratamiento.id_tratamiento JOIN doctor ON historial_clinica.id_doctor = doctor.id_doctor JOIN persona AS persona_doctor ON doctor.id_persona = persona_doctor.id_persona WHERE historial_clinica.id_paciente = $1;",
         [pacienteId]
       );
       return response.rows;

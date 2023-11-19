@@ -13,9 +13,9 @@ const getAllAgenda = async (req, res) => {
 
 // Obtener un tratamietn por el ID paciente
 const getAgendaById = async (req, res) => {
-  const doctorId = req.params.id;
+  const agendaId = req.params.id;
   try {
-    const agenda = await agendaService.getOne(doctorId);
+    const agenda = await agendaService.getOne(agendaId);
     if (agenda) {
       res.status(200).json(agenda);
     } else {
