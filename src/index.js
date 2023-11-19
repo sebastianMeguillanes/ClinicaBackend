@@ -14,10 +14,12 @@ const agendaRoutes = require("./v1/routes/agendaRoutes");
 const usuarioRoutes = require("./v1/routes/usuarioRoutes");
 const loginRoutes = require("./v1/routes/loginRoutes");
 
+const authenticateToken = require('./middlewares/authMiddleware');
 // const { verificarToken, manejarErrores } = require('./middlewares/authMiddleware')
 
 ///////////////
 const radiografiaRoutes = require("./v1/routes/radiografiaRoutes");
+const { log } = require("console");
 
 const app = express();
 
@@ -32,7 +34,9 @@ const PORT = process.env.PORT || 2000;
 
 function startServer() {
   const router = express.Router();
-  app.use("/api/v1", router);
+  
+  app.use("/api/v1/login", loginRoutes);
+  app.use("/api/v1",authenticateToken,router);
 
   //  // Middleware de autenticación y manejo de errores
   // router.use(verificarToken);
@@ -44,7 +48,6 @@ function startServer() {
   router.use("/histClinica", histClinicaRoutes);
   router.use("/agenda", agendaRoutes);
   router.use("/usuario", usuarioRoutes);
-  router.use("/login", loginRoutes);
 
 
   ///

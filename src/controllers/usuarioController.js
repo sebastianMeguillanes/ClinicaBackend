@@ -31,7 +31,7 @@ const getUsuarioById = async (req, res) => {
 //Crea usuario mandando por hash
 const createUsuario = async (req,res) =>{
     const UsuarioData = req.body;
-    const password = req.body.contraseña;
+    const password = req.body.contrasena;
 
      // Hash the password before saving it in the database
     const hashedPassword = await bcrypt.hash(password, 10);
