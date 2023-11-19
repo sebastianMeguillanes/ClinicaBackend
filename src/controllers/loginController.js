@@ -6,14 +6,14 @@ const jwt = require("jsonwebtoken");
 
 const login = async (req , res ) =>{
     const usuario = req.body.usuario
-    const contraseña = req.body.contraseña
+    const contrasena = req.body.contrasena
     try {
         const login = await loginService.getUserByUsername(usuario);
        
         if (!login) {
             return res.status(401).json({ message: 'Usuario no encontrado' });
           }
-          const passwordMatch = await loginService.comparePasswords(contraseña, login.contraseña);
+          const passwordMatch = await loginService.comparePasswords(contrasena, login.contrasena);
           if (!passwordMatch) {
             return res.status(401).json({ message: 'Contraseña incorrecta' });
           }
