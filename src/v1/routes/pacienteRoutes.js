@@ -1,13 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const pacienteController = require("../../controllers/pacienteController");
+
 router
-    .get("/", pacienteController.getAllPacientes)
-    .get("/:id", pacienteController.getPacienteById)
+    .get("/",pacienteController.getAllPacientes)
+    .get("/:id",pacienteController.getPacienteById)
     .post("/", pacienteController.createPaciente)
     .put("/:id", pacienteController.updatePaciente)
-    .delete("/:id",pacienteController.deletePaciente);   
+    .delete("/:id",pacienteController.deletePaciente);      
     
 module.exports = router;
-
-//module.exports =(app) => app.use("/pacienteRoutes",router);
