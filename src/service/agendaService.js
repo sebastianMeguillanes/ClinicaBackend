@@ -1,29 +1,17 @@
 const db = require('../database/db');
 
 // Obtener todos las agendas.
-// const getAll = async ()=> {
-//     try {
-//       const response = await db.query(
-//         "SELECT agenda.*, persona.* FROM agenda JOIN doctor ON agenda.id_doctor = doctor.id_doctor JOIN persona ON doctor.id_persona = persona.id_persona;"
-//       );
-//       return response.rows;
-//     } catch (error) {
-//       console.error(error);
-//       throw error;
-//     }
-//   };
-
 const getAll = async ()=> {
-  try {
-    const response = await db.query(
-      'Select * from agenda;'
-    );
-    return response.rows;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-};
+    try {
+      const response = await db.query(
+        "SELECT agenda.*, persona.* FROM agenda JOIN doctor ON agenda.id_doctor = doctor.id_doctor JOIN persona ON doctor.id_persona = persona.id_persona;"
+      );
+      return response.rows;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
 
 //   // Se busca agenda mediante id doctor
 // const getOne = async (doctorId) => {
@@ -43,7 +31,7 @@ const getAll = async ()=> {
   const getOne = async (doctorId) => {
     try {
       const response = await db.query(
-        'Select * from agenda where id_agenda = $1;',
+        "SELECT agenda.*, persona.* FROM agenda JOIN doctor ON agenda.id_doctor = doctor.id_doctor JOIN persona ON doctor.id_persona = persona.id_persona where agenda.id_agenda = $1;",
         [doctorId]
       );
       return response.rows;
@@ -52,8 +40,7 @@ const getAll = async ()=> {
       throw error;
     }
   };
-
-
+  
   // Crear un nueva genda
 const createNew = async (AgendaData) => {
     try {
