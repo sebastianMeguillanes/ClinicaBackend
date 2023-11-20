@@ -117,7 +117,8 @@ const deleteOne = async (histClinicaId) => {
 async function getdate(histClinicaId) {
   try {
 
-    const response = await db.query("SELECT hc.id_historial, hc.medicaciones,hc.examen_clinico, p.nombre AS nombre_paciente, p.apellido AS apellido_paciente, t.tipo AS tipo_tratamiento, d.nombre AS nombre_doctor, d.apellido AS apellido_doctor,hc.fecha_registro,hc.estado_historial FROM historial_clinica hc JOIN paciente pa ON hc.id_paciente = pa.id_paciente JOIN persona p ON pa.id_persona = p.id_persona JOIN tratamiento t ON hc.id_tratamiento = t.id_tratamiento JOIN doctor dr ON hc.id_doctor = dr.id_doctor JOIN persona d ON dr.id_persona = d.id_persona WHERE hc.id_historial = $1;",
+    const response = await db.query(
+    "SELECT hc.*, p_paciente.*, t.*, d.*, p_doctor.* FROM historial_clinica hc JOIN paciente pa ON hc.id_paciente = pa.id_paciente JOIN persona p_paciente ON pa.id_persona = p_paciente.id_persona JOIN tratamiento t ON hc.id_tratamiento = t.id_tratamiento JOIN doctor d ON hc.id_doctor = d.id_doctor JOIN persona p_doctor ON d.id_persona = p_doctor.id_persona WHERE hc.id_historial = $1;",
     [histClinicaId]
     )
     
