@@ -36,6 +36,7 @@ function startServer() {
   const router = express.Router();
   
   app.use("/api/v1/login", loginRoutes);
+  app.use("/api/v1/histClinica", histClinicaRoutes);
   app.use("/api/v1",authenticateToken,router);
 
   //  // Middleware de autenticación y manejo de errores
@@ -45,7 +46,7 @@ function startServer() {
   router.use("/paciente", pacienteRoutes);
   router.use("/doctor", doctorRoutes);
   router.use("/tratamiento", tratamientoRoutes);
-  router.use("/histClinica", histClinicaRoutes);
+ // router.use("/histClinica", histClinicaRoutes);
   router.use("/agenda", agendaRoutes);
   router.use("/usuario", usuarioRoutes);
 
