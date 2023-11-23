@@ -1,4 +1,3 @@
-
 const pacienteService = require("../service/pacienteService");
 
 // Obtener todos los pacientes

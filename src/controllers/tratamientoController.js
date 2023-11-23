@@ -39,7 +39,7 @@ const createTratamiento = async (req, res) => {
   }
 };
 
-// Actualizar un paciente por su ID
+// Actualizar un tratamiento por su ID
 const updateTratamiento = async (req, res) => {
   const tratamientoId = req.params.id;
   const TratamientoData = req.body;

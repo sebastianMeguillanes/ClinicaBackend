@@ -43,6 +43,7 @@ const createAgenda = async (req, res) => {
 const updateAgenda = async (req, res) => {
   const agendaId = req.params.id;
   const AgendaData = req.body;
+  console.log(AgendaData)
   try {
     const resultado = await agendaService.updateOne(agendaId, AgendaData);
     res.status(200).json(resultado);

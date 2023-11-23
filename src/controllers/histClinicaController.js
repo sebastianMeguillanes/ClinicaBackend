@@ -1,7 +1,6 @@
 const histClinicaService = require("../service/histClinicaService");
 const path = require('path');
 const fs = require('fs');
-const { log } = require("console");
 
 // Obtener todos las historias clinicas
 const getAllHistClinica = async (req, res) => {
@@ -46,31 +45,24 @@ const getHistClinicaById2 = async (req, res) => {
   }
 };
 
-
-
 // Crea historial clinica con nombre de imagen
 async function createHistClinica(req, res) {
   try {
-
-    if(req.files == null) {
-
-      const  histClinicaData = req.body;
+    if (req.files == null) {
+      const histClinicaData = req.body;
       const imageName = "0";
-      // console.log(histClinicaData)
-      // console.log(imageName)
       await histClinicaService.createNew(histClinicaData, imageName);
-    }else{
-      const  histClinicaData = req.body;
+    } else {
+      
+      const histClinicaData = req.body;
+      console.log(req.files)
       const imagen = req.files.imagen;
 
       const imageName = generarNombreUnico(imagen.name);
-      
       const uploadPath = path.join(__dirname, '../upload', imageName);
       await imagen.mv(uploadPath);
-      // console.log(histClinicaData)
-      // console.log(imageName)
       await histClinicaService.createNew(histClinicaData, imageName);
-    
+     
     }
 
     res.status(200).json({ message: 'Historial Clinica guardada correctamente' });
@@ -80,7 +72,7 @@ async function createHistClinica(req, res) {
   }
 }
 
-////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////ver de eliminar el otro update///////////////////////////////////////////
 // Actualizar Historial Clinica por su ID
 const updateHistClinica = async (req, res) => {
   const histClinicaId = req.params.id;
@@ -115,18 +107,15 @@ const deleteHistClinica = async (req, res) => {
 //Obtiene imagen mediate el nombre
 async function getImage(req, res) {
   try {
-    //const { id } = req.params;
+    
     const histClinicaId = req.params.id;
     const imageName = await histClinicaService.getImage(histClinicaId)
     const datosRadiografia = await histClinicaService.getdate(histClinicaId);
-    console.log(datosRadiografia)
-    
-    //console.log(histClinicaId)
-    // Ruta completa de la imagen
     const imagePath = path.join(__dirname, '../upload', imageName);
 
     // Verificar si la imagen existe
     if (fs.existsSync(imagePath)) {
+      
       // Devolver los datos y la imagen como respuesta
       res.json({ datos: datosRadiografia, imagen: imagePath });
     } else {
@@ -147,8 +136,6 @@ async function updateImage(req, res) {
       const histClinicaId = req.params.id;
       const  histClinicaData = req.body;
       const imageName = "0";
-      // console.log(histClinicaData)
-      // console.log(imageName)
       await histClinicaService.updateimagedate(histClinicaId,histClinicaData, imageName);
     }else{
 

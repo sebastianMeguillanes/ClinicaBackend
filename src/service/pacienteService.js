@@ -27,7 +27,6 @@ const getOne = async (pacienteId) => {
   }
 };
 
-
 const createNew = async (pacienteData) => {
   try {
     const {
@@ -56,8 +55,6 @@ const createNew = async (pacienteData) => {
     throw error;
   }
 };
-
-
 
 // Actualizar un paciente/persona por su ID
 const updateOne = async (pacienteId, pacienteData) => {

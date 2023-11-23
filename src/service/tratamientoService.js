@@ -47,8 +47,6 @@ const createNew = async (TratamientoData) => {
   }
 };
 
-
-
 // Actualizar un tratamiento mediante el id 
 const updateOne = async (tratamientoId, TratamientoData) => {
   try {

@@ -1,6 +1,5 @@
 const db = require('../database/db');
 
-
 const getAll = async ()=> {
   try {
     const response = await db.query(
@@ -25,6 +24,7 @@ const getOne = async (doctorId) => {
     throw error;
   }
 };
+
 const createNew = async (doctorData) => {
   try {
     const {
@@ -57,8 +57,6 @@ const createNew = async (doctorData) => {
     throw error;
   }
 };
-
-
 
 const updateOne = async (doctorId, doctorData) => {
   try {

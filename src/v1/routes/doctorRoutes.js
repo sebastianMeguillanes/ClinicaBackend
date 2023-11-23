@@ -9,5 +9,4 @@ router
     .put("/:id",  doctorController.updateDoctor)
     .delete("/:id",doctorController.deleteDoctor);   
 
-     
 module.exports = router; 

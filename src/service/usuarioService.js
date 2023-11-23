@@ -27,7 +27,6 @@ const getOne = async (usuarioId)=> {
   }
 };
 
-
 const createNew = async (UsuarioData,hashedPassword) =>{
   try {
     const {
@@ -49,7 +48,6 @@ const createNew = async (UsuarioData,hashedPassword) =>{
     throw error;
   }
 }
-
 
 module.exports = {
   getAll,

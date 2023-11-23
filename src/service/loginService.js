@@ -14,7 +14,6 @@ class UserService {
       const passwordMatch = await bcrypt.compare(plainPassword, hashedPassword);
       return passwordMatch;
     } catch (error) {
-      // Manejar cualquier error que pueda ocurrir durante la comparación
       console.error('Error al comparar contraseñas:', error);
       return false;
     }

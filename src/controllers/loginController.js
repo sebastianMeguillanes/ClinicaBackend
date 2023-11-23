@@ -1,6 +1,4 @@
-
 const loginService = require('../service/loginService');
-//const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 
 
@@ -26,8 +24,5 @@ const login = async (req , res ) =>{
     }
 };
 
-module.exports = {
-    login
-    
-};
+module.exports = {login};
 

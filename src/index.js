@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-//const seguridad = require("./middlewares/auth.handler");
 const path = require('path');
 const fileUpload = require('express-fileupload');
 
@@ -13,14 +12,10 @@ const histClinicaRoutes = require("./v1/routes/histClinicaRoutes");
 const agendaRoutes = require("./v1/routes/agendaRoutes");
 const usuarioRoutes = require("./v1/routes/usuarioRoutes");
 const loginRoutes = require("./v1/routes/loginRoutes");
-
 const authenticateToken = require('./middlewares/authMiddleware');
-// const { verificarToken, manejarErrores } = require('./middlewares/authMiddleware')
 
 ///////////////
 const radiografiaRoutes = require("./v1/routes/radiografiaRoutes");
-const { log } = require("console");
-
 const app = express();
 
 app.use(cors());
@@ -29,7 +24,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(fileUpload());
 
-
 const PORT = process.env.PORT || 2000;
 
 function startServer() {
@@ -37,10 +31,8 @@ function startServer() {
   
   app.use("/api/v1/login", loginRoutes);
   app.use("/api/v1/histClinica", histClinicaRoutes);
-  app.use("/api/v1",authenticateToken,router);
 
-  //  // Middleware de autenticación y manejo de errores
-  // router.use(verificarToken);
+  app.use("/api/v1",authenticateToken,router);
 
   // Rutas
   router.use("/paciente", pacienteRoutes);
@@ -50,7 +42,6 @@ function startServer() {
   router.use("/agenda", agendaRoutes);
   router.use("/usuario", usuarioRoutes);
 
-
   ///
   router.use("/radiografia", radiografiaRoutes);
 
@@ -59,8 +50,6 @@ function startServer() {
     console.log("Server listening on port", PORT);
   });
 
-    // // Middleware de manejo de errores al final
-    // app.use(manejarErrores);
 }
 
 startServer();

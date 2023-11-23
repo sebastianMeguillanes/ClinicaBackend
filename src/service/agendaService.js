@@ -13,20 +13,6 @@ const getAll = async ()=> {
     }
   };
 
-//   // Se busca agenda mediante id doctor
-// const getOne = async (doctorId) => {
-//     try {
-//       const response = await db.query(
-//         "SELECT agenda.*, persona.* FROM agenda JOIN doctor ON agenda.id_doctor = doctor.id_doctor JOIN persona ON doctor.id_persona = persona.id_persona where agenda.id_agenda = $1;",
-//         [doctorId]
-//       );
-//       return response.rows;
-//     } catch (error) {
-//       console.error(error);
-//       throw error;
-//     }
-//   };
-
   // Se busca agenda mediante id doctor
   const getOne = async (doctorId) => {
     try {
@@ -72,12 +58,13 @@ const updateOne = async (agendaId, AgendaData) => {
             ci,
             fecha_hora,
             descripcion,
-            id_doctor
+            id_doctor,
+            estado_agenda
           } = AgendaData;
   
       const response = await db.query(
-        'UPDATE agenda SET nombre_paciente = $1, ci = $2, fecha_hora = $3, descripcion = $4, id_doctor = $5 WHERE id_agenda = $6',
-        [nombre_paciente,ci,fecha_hora,descripcion,id_doctor,agendaId]
+        'UPDATE agenda SET nombre_paciente = $1, ci = $2, fecha_hora = $3, descripcion = $4, id_doctor = $5 , estado_agenda = $6 WHERE id_agenda = $7',
+        [nombre_paciente,ci,fecha_hora,descripcion,id_doctor,estado_agenda,agendaId]
       );
   
       return response.rows;
@@ -99,8 +86,6 @@ const deleteOne = async (agendaId) => {
     }
   };
   
-
-
 // Exportar las funciones del servicio
 module.exports = {
     getAll,

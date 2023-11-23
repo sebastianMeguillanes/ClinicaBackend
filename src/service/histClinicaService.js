@@ -27,7 +27,6 @@ const getOne = async (pacienteId) => {
     }
   };
 
-
   const getOne2 = async (histClinicaId) => {
     try {
       const response = await db.query(
@@ -53,10 +52,8 @@ async function createNew(histClinicaData, imageName) {
         medicaciones,
         examen_clinico
       } = histClinicaData;
-      //console.log(nombrePaciente)
     const query =  'INSERT INTO historial_clinica (id_paciente,id_tratamiento,id_doctor,fecha_registro,estado_historial,medicaciones,examen_clinico,radiografias) VALUES ($1, $2, $3, $4, $5, $6, $7,$8);';
     const values = [id_paciente,id_tratamiento,id_doctor,fecha_registro,estado_historial,medicaciones,examen_clinico,imageName];
-
     const result = await db.query(query, values);
     return result.rows;
   } catch (error) {
@@ -111,9 +108,7 @@ const deleteOne = async (histClinicaId) => {
   }
 };
   
-//obtiene imagen con datos
-
-//Obtiene los datos de la id 
+//obtiene imagen con datos mediante id 
 async function getdate(histClinicaId) {
   try {
 
@@ -121,8 +116,6 @@ async function getdate(histClinicaId) {
     "SELECT hc.*, p_paciente.*, t.*, d.*, p_doctor.* FROM historial_clinica hc JOIN paciente pa ON hc.id_paciente = pa.id_paciente JOIN persona p_paciente ON pa.id_persona = p_paciente.id_persona JOIN tratamiento t ON hc.id_tratamiento = t.id_tratamiento JOIN doctor d ON hc.id_doctor = d.id_doctor JOIN persona p_doctor ON d.id_persona = p_doctor.id_persona WHERE hc.id_historial = $1;",
     [histClinicaId]
     )
-    
-    //const result = await db.query(query, values);
     return response.rows[0]; // Suponiendo que solo hay una fila con ese nombre de imagen
   } catch (error) {
     throw error;
@@ -139,7 +132,6 @@ async function getImage(histClinicaId) {
       );
     
       const imageName = response.rows[0].radiografias;
-      //const result = await db.query(query, values);
       return imageName;  // Suponiendo que solo hay una fila con ese nombre de imagen
   } catch (error) {
     throw error;
@@ -172,10 +164,8 @@ async function updateimagedate(histClinicaId,histClinicaData, imageName) {
         medicaciones,
         examen_clinico
       } = histClinicaData;
-      //console.log(nombrePaciente)
     const query =  "UPDATE historial_clinica SET id_paciente = $1 , id_tratamiento = $2, id_doctor = $3 , fecha_registro = $4 , estado_historial = $5 , medicaciones = $6 , examen_clinico = $7 , radiografias = $8 WHERE id_historial = $9;";
     const values = [id_paciente,id_tratamiento,id_doctor,fecha_registro,estado_historial,medicaciones,examen_clinico,imageName,histClinicaId];
-
     const result = await db.query(query, values);
     return result.rows;
   } catch (error) {
@@ -189,18 +179,13 @@ async function deleteimagedate(imageName) {
   try {
     const query = "UPDATE historial_clinica SET radiografias = '0' WHERE radiografias = $1;";
     const values = [imageName];
-
     const result = await db.query(query, values);
     return result.rows[0]; // Suponiendo que solo hay una fila con ese nombre de imagen
   } catch (error) {
     throw error;
   }
-}
+}  
 
-
-
-  
-  // Exportar las funciones del servicio
 module.exports = {
     getAll,
     getOne,
