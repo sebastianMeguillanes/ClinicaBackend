@@ -105,19 +105,39 @@ const deleteHistClinica = async (req, res) => {
 //////////////////////////////////////////////////FUNCIONES IMAGENES//////////////////////////////////////////
 
 //Obtiene imagen mediate el nombre
+// async function getImage(req, res) {
+//   try {
+    
+//     const histClinicaId = req.params.id;
+//     const imageName = await histClinicaService.getImage(histClinicaId)
+//     const datosRadiografia = await histClinicaService.getdate(histClinicaId);
+//     const imagePath = path.join(__dirname, '../upload', imageName);
+
+//     // Verificar si la imagen existe
+//     if (fs.existsSync(imagePath)) {
+      
+//       // Devolver los datos y la imagen como respuesta
+//       res.json({ datos: datosRadiografia, imagen: imagePath });
+//     } else {
+//       res.status(404).json({ datos: datosRadiografia, error: 'No tiene imagen' });
+//     }
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: 'Error al buscar la imagen' });
+//   }
+// }
+
 async function getImage(req, res) {
   try {
-    
     const histClinicaId = req.params.id;
-    const imageName = await histClinicaService.getImage(histClinicaId)
+    const imageName = await histClinicaService.getImage(histClinicaId);
     const datosRadiografia = await histClinicaService.getdate(histClinicaId);
     const imagePath = path.join(__dirname, '../upload', imageName);
 
     // Verificar si la imagen existe
     if (fs.existsSync(imagePath)) {
-      
-      // Devolver los datos y la imagen como respuesta
-      res.json({ datos: datosRadiografia, imagen: imagePath });
+      // Enviar la imagen como respuesta
+      res.sendFile(imagePath);
     } else {
       res.status(404).json({ datos: datosRadiografia, error: 'No tiene imagen' });
     }
