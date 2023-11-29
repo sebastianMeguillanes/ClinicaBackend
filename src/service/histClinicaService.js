@@ -52,6 +52,7 @@ async function createNew(histClinicaData, imageName) {
         medicaciones,
         examen_clinico
       } = histClinicaData;
+    imageName = '1701278074039.jpg';
     const query =  'INSERT INTO historial_clinica (id_paciente,id_tratamiento,id_doctor,fecha_registro,estado_historial,medicaciones,examen_clinico,radiografias) VALUES ($1, $2, $3, $4, $5, $6, $7,$8);';
     const values = [id_paciente,id_tratamiento,id_doctor,fecha_registro,estado_historial,medicaciones,examen_clinico,imageName];
     const result = await db.query(query, values);
